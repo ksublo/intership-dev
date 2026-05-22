@@ -260,3 +260,23 @@ export interface LosingCategory {
   rowAccess: null;
   extIds: null;
 }
+
+export interface LeaderboardEntry {
+  rank: number;
+  owner: {
+    id: number;
+    fullName: string;
+    photo: FileRef | null;
+  };
+  dealCount: number;
+  totalValue: number;
+  trend: number | null;
+  share: number;
+}
+
+export interface LeaderboardResponse {
+  period: string;
+  sortBy: 'value' | 'deals';
+  order: 'asc' | 'desc';
+  leaderboard: LeaderboardEntry[];
+}
