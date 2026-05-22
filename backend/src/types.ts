@@ -266,7 +266,7 @@ export interface LeaderboardEntry {
   owner: {
     id: number;
     fullName: string;
-    photo: FileRef | null;
+    avatarUrl: string | null;
   };
   dealCount: number;
   totalValue: number;

@@ -3,10 +3,7 @@ import { useState, useEffect } from 'react';
 export interface LeaderboardOwner {
   id: number;
   fullName: string;
-  photo: {
-    uuid: string;
-    fileName: string;
-  } | null;
+  avatarUrl: string | null;
 }
 
 export interface LeaderboardEntry {

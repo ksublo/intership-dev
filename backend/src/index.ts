@@ -61,6 +61,21 @@ function aggregateByOwner(items: BusinessCase[]): Map<number, { dealCount: numbe
   return map;
 }
 
+const AVATAR_MAP: Record<string, string> = {
+  'rybarova.png':        '/avatars/rybarova.svg',
+  'tunak.png':           '/avatars/tunak.svg',
+  '986564_66073771.jpg': '/avatars/kosatka.svg',
+  'sardinka.png':        '/avatars/sardinka.svg',
+  'ploticova.png':       '/avatars/ploticova.svg',
+  'stikova.png':         '/avatars/stikova.svg',
+  'rejnok.png':          '/avatars/rejnok.svg',
+  'kaprova.png':         '/avatars/kaprova.svg',
+  'sumec.png':           '/avatars/sumec.svg',
+  'candat.png':          '/avatars/candat.svg',
+  'pstruh.png':          '/avatars/pstruh.svg',
+  '1182765_99082097.jpg':'/avatars/lososova.svg',
+};
+
 // GET /api/leaderboard?period=2026-05&sortBy=value&order=desc
 app.get('/api/leaderboard', (req, res) => {
   try {
@@ -94,7 +109,7 @@ app.get('/api/leaderboard', (req, res) => {
         owner: {
           id: entry.owner.id,
           fullName: entry.owner.fullName,
-          photo: entry.owner.photo,
+          avatarUrl: entry.owner.photo ? (AVATAR_MAP[entry.owner.photo.fileName] ?? null) : null,
         },
         dealCount: entry.dealCount,
         totalValue: entry.totalValue,
@@ -124,6 +139,7 @@ app.get('/api/leaderboard', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server běží na http://localhost:${PORT}`);
   console.log(`📋 API dostupné na http://localhost:${PORT}/api/hello`);
+  console.log(`📋 API dostupné na http://localhost:${PORT}/api/leaderboard`);
 });
 
 export default app;
