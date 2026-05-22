@@ -15,34 +15,31 @@ export interface LeaderboardEntry {
   share: number;
 }
 
-export interface LeaderboardResponse {
+export interface LeaderboardFilters {
   period: string;
-  sortBy: 'value' | 'deals';
-  order: 'asc' | 'desc';
-  leaderboard: LeaderboardEntry[];
+  ownerIds: number[];
+  regions: string[];
 }
 
-export function useLeaderboard(period?: string) {
+export function useLeaderboard(filters: LeaderboardFilters) {
   const [data, setData] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const params = period ? `?period=${period}` : '';
-    fetch(`/api/leaderboard${params}`)
+    const params = new URLSearchParams({ period: filters.period });
+    if (filters.ownerIds.length > 0) params.set('ownerId', filters.ownerIds.join(','));
+    if (filters.regions.length > 0)  params.set('region',  filters.regions.join(','));
+
+    setLoading(true);
+    fetch(`/api/leaderboard?${params}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch leaderboard');
-        return res.json() as Promise<LeaderboardResponse>;
+        return res.json();
       })
-      .then(result => {
-        setData(result.leaderboard);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, [period]);
+      .then(result => { setData(result.leaderboard); setLoading(false); })
+      .catch(err => { setError(err.message); setLoading(false); });
+  }, [filters.period, filters.ownerIds.join(','), filters.regions.join(',')]);
 
   return { data, loading, error };
 }
