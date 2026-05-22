@@ -1,4 +1,4 @@
-import type { LeaderboardEntry } from '../../hooks/useLeaderboard';
+import type { LeaderboardEntry } from '../../hooks/useLeaderboard.ts';
 
 interface LeaderboardCardsProps {
     data: LeaderboardEntry[];

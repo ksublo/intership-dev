@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { LeaderboardFilters } from '../../hooks/useLeaderboard';
-import { FilterOptions } from '../../hooks/useFilters';
+import { LeaderboardFilters } from '../../hooks/useLeaderboard.ts';
+import { FilterOptions } from '../../hooks/useFilters.ts';
 
 const CZECH_MONTHS = [
   'Leden', 'Únor', 'Březen', 'Duben', 'Máj', 'Červen',

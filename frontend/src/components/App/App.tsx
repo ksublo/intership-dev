@@ -4,8 +4,8 @@ import { Sidebar } from '../Sidebar/Sidebar';
 import { useLeaderboard, LeaderboardFilters } from '../../hooks/useLeaderboard';
 import { useFilters } from '../../hooks/useFilters';
 import './App.css';
-import { LeaderboardFiltersBar } from '../LeaderboardCards/LeaderboardFilters';
-import { LeaderboardCards } from '../LeaderboardFilters/LeaderboardCards';
+import { LeaderboardFiltersBar } from '../LeaderboardFilters/LeaderboardFilters.tsx';
+import { LeaderboardCards } from '../LeaderboardCards/LeaderboardCards.tsx';
 
 const DEFAULT_PERIOD = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`;
 
