@@ -51,9 +51,9 @@ export function DataTable({ data }: DataTableProps) {
 
                             <td className="px-6 py-5">
                                 <div className="flex items-center gap-3">
-                                    {entry.owner.photo ? (
+                                    {entry.owner.avatarUrl ? (
                                         <img
-                                            src={`/api/files/${entry.owner.photo.uuid}`}
+                                            src={entry.owner.avatarUrl}
                                             alt={entry.owner.fullName}
                                             className="h-11 w-11 rounded-full object-cover"
                                         />

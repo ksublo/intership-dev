@@ -90,10 +90,10 @@ function Avatar({
 }) {
     const sizeClass = size === 'large' ? 'h-14 w-14' : 'h-10 w-10';
 
-    if (owner.photo) {
+    if (owner.avatarUrl) {
         return (
             <img
-                src={`/api/files/${owner.photo.uuid}`}
+                src={owner.avatarUrl}
                 alt={owner.fullName}
                 className={`mx-auto rounded-full object-cover ${sizeClass}`}
             />
