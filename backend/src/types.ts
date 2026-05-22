@@ -280,3 +280,8 @@ export interface LeaderboardResponse {
   order: 'asc' | 'desc';
   leaderboard: LeaderboardEntry[];
 }
+
+export interface FiltersResponse {
+  owners: { id: number; fullName: string }[];
+  regions: string[];
+}

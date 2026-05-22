@@ -1,40 +1,48 @@
 import { useState } from 'react';
 import { DataTable } from '../DataTable/DataTable';
 import { Sidebar } from '../Sidebar/Sidebar';
-import { useLeaderboard } from '../../hooks/useLeaderboard';
+import { useLeaderboard, LeaderboardFilters } from '../../hooks/useLeaderboard';
+import { useFilters } from '../../hooks/useFilters';
 import './App.css';
-import {LeaderboardFilters} from "../LeaderboardCards/LeaderboardFilters.tsx";
-import {LeaderboardCards} from "../LeaderboardFilters/LeaderboardCards.tsx";
+import { LeaderboardFiltersBar } from '../LeaderboardCards/LeaderboardFilters';
+import { LeaderboardCards } from '../LeaderboardFilters/LeaderboardCards';
+
+const DEFAULT_PERIOD = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`;
 
 function App() {
-    const [period, setPeriod] = useState('2026-05');
-    const { data, loading, error } = useLeaderboard(period);
+  const [filters, setFilters] = useState<LeaderboardFilters>({
+    period: DEFAULT_PERIOD,
+    ownerIds: [],
+    regions: [],
+  });
 
-    return (
-        <div className="app-container">
-            <Sidebar />
+  const { data, loading, error } = useLeaderboard(filters);
+  const filterOptions = useFilters();
 
-            <div className="main-container">
-                <LeaderboardFilters
-                    period={period}
-                    onPeriodChange={setPeriod}
-                />
+  return (
+    <div className="app-container">
+      <Sidebar />
+      <div className="main-container">
+        <LeaderboardFiltersBar
+          filters={filters}
+          options={filterOptions}
+          onChange={setFilters}
+        />
 
-                {loading && <p className="p-6">Načítám data...</p>}
+        {loading && <p className="p-6">Načítám data...</p>}
+        {error && <p className="p-6 text-red-600">{error}</p>}
 
-                {error && <p className="p-6 text-red-600">{error}</p>}
-
-                {!loading && !error && (
-                    <>
-                        <LeaderboardCards data={data} />
-                        <div className="px-6 pb-6">
-                            <DataTable data={data.slice(6)} />
-                        </div>
-                    </>
-                )}
+        {!loading && !error && (
+          <>
+            <LeaderboardCards data={data} />
+            <div className="px-6 pb-6">
+              <DataTable data={data.slice(6)} />
             </div>
-        </div>
-    );
+          </>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default App;
